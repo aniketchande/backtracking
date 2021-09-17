@@ -53,7 +53,7 @@
 <p>Here is the algorithm (in pseudocode) for doing backtracking from a given node n:</p>
 <font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
     boolean solve(Node n) {
     if n is a leaf node {
         if the leaf is a goal node, return true
@@ -75,22 +75,23 @@
     <li>If no child of <font color="#752b01">n</font> is solvable, then <font color="#752b01">n</font> is not solvable.</li>
 </ul>
 <p>Hence, to decide whether any non-leaf node <font color="#752b01">n</font> is solvable (part of a path to a goal node), all you have to do is test whether any child of <font color="#752b01">n</font> is solvable. This is done recursively, on each child of <font color="#752b01">n</font>. In the above code, this is done by the lines</p>
-
-<pre> <font color="#752b01">
+<font size="+1">
+<pre> <font color="#6a0700">
     for each child c of n {
         if solve(c) succeeds, return true
     }
     return false
     </font>
-</pre>
+</pre></font>
 <p>Eventually the recursion will "bottom" out at a leaf node. If the leaf node is a goal node, it is solvable; if the leaf node is not a goal node, it is not solvable. This is our base case. In the above code, this is done by the lines</p>
-<pre> <font color="#752b01">
+<font size="+1">
+<pre> <font color="#6a0700">
     if n is a leaf node {
         if the leaf is a goal node, return true
         else return false
     }
     </font>
-</pre>
+</pre></font>
 <p>The backtracking algorithm is simple but important. You should understand it thoroughly. Another way of stating it is as follows:</p>
 <ul>
     <li>
@@ -104,8 +105,9 @@
 <br>
 <b><font size="+1"> Non-recursive backtracking, using a stack</font></b>
 <p>Backtracking is a rather typical recursive algorithm, and any recursive algorithm can be rewritten as a stack algorithm. In fact, that is how your recursive algorithms are translated into machine or assembly language.</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
       boolean solve(Node n) {
         put node n on the stack;
         while the stack is not empty {
@@ -122,12 +124,13 @@
         return false
      }
     </font>
-</pre>
+</pre></font>
 <p>Starting from the root, the only nodes that can be pushed onto the stack are the children of the node currently on the top of the stack, and these are only pushed on one child at a time; hence, the nodes on the stack at all times describe a valid path in the tree. Nodes are removed from the stack only when it is known that they have no goal nodes among their descendents. Therefore, if the root node gets removed (making the stack empty), there must have been no goal nodes at all, and no solution to the problem.</p>
 <p>Similarly, when the recursive algorithm finds a goal node, the path information is embodied (in reverse order) in the sequence of recursive calls. Thus as the recursion unwinds, the path can be recovered one node at a time, by (for instance) printing the node at the current level, or storing it in an array.</p>
 <p>Here is the recursive backtracking algorithm, modified slightly to print (in reverse order) the nodes along the successful path:</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         boolean solve(Node n) {
             if n is a leaf node {
                 if the leaf is a goal node {
@@ -146,7 +149,7 @@
             }
         }
     </font>
-</pre>
+</pre></font>
 <b><font size ="+1">Keeping backtracking simple</font></b>
 <p>All of these versions of the backtracking algorithm are pretty simple, but when applied to a real problem, they can get pretty cluttered up with details. Even determining whether the node is a leaf can be complex: for example, if the path represents a series of moves in a chess endgame problem, the leaves are the checkmate and stalemate solutions.</p>
 <p>To keep the program clean, therefore, tests like this should be buried in methods. In a chess game, for example, you could test whether a node is a leaf by writing a <font color="752b01">gameOver</font> method (or you could even call it <font color="752b01">isLeaf</font>). This method would encapsulate all the ugly details of figuring out whether any possible moves remain.</p>
@@ -163,8 +166,9 @@
 <img src="treesearch.gif">
 </center>
 <p>Here's a definition of the BinaryTree class:</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         public class BinaryTree {
             BinaryTree leftChild = null;
             BinaryTree rightChild = null;
@@ -179,10 +183,11 @@
             }
         }
     </font>
-</pre>
+</pre></font>
 <p>Next we will create a <font color ="#752b01">TreeSearch</font> class, and in it we will define a method <font color ="#752b01">makeTree()</font> which constructs the above binary tree.</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         static BinaryTree makeTree() {
             BinaryTree root, a, b, c, d, e, f;
             c = new BinaryTree("C", null, null, false);
@@ -195,19 +200,21 @@
             return root;
         }
     </font>
-</pre>
+</pre></font>
 <p>Here's a main program to create a binary tree and try to solve it:</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         public static void main(String args[]) {
             BinaryTree tree = makeTree();
             System.out.println(solvable(tree));
         }
     </font>
-</pre>
+</pre></font>
 <p>And finally, here's the recursive backtracking routine to "solve" the binary tree by finding a goal node.</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         static boolean solvable(BinaryTree node) {
           <font color="blue"> /* 1 */</font>  if (node == null) return false;
           <font color="blue"> /* 2 */</font>  if (node.isGoalNode) return true;
@@ -216,7 +223,7 @@
           <font color="blue"> /* 5 */</font>  return false;
             }
     </font>
-</pre>
+</pre></font>
 <p>Here's what the numbered lines are doing:</p>
 <ol>
     <li>If we are given a null node, it's not solvable. This statement is so that we can call this method with the children of a node, without first checking whether those children actually exist.</li>
@@ -227,8 +234,9 @@
 </ol>
 <p>This program runs correctly and produces the unenlightening result <font color="#752b01">true</font>.</p>
 <p>Each time we ask for another node, we have to check if it is <font color="#752b01">null</font>. In the above we put that check as the first thing in <font color="#752b01">solvable</font>. An alternative would be to check first whether each child exists, and recur only if they do. Here's that alternative version:</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         static boolean solvable(BinaryTree node) {
             if (node.isGoalNode) return true;
             if (node.leftChild != null && solvable(node.leftChild)) return true;
@@ -236,7 +244,7 @@
             return false;
         }
     </font>
-</pre>
+</pre></font>
 <p>I think the first version is simpler, but the second version is slightly more efficient.</p>
 <h3>What are the children?</h3>
 <p>One of the things that simplifies the above binary tree search is that, at each choice point, you can ignore all the previous choices. Previous choices don't give you any information about what you should do next; as far as you know, both the left and the right child are possible solutions. In many problems, however, you may be able to eliminate children immediately, without recursion.</p>
@@ -248,15 +256,16 @@
 </ul>
 <p>Let's apply each of these two methods to the problem of coloring a checkerboard. This should be easily solvable; after all, a checkerboard only needs two colors.</p>
 <p>In both methods, the colors are represented by integers, from <font color="#752b01">RED=1</font> to <font color="#752b01">BLUE=4</font>. We define the following helper methods. The helper method code isn't displayed here because it's not important for understanding the method that does the backtracking.</p>
-<pre><font color="#752b01">boolean mapIsOK()</font></pre>
+<font size="+1"><pre><font color="#6a0700">boolean mapIsOK()</font></pre></font>
 <p>Used by method 1 to check (at a leaf node) whether the entire map is colored correctly.</p>
-<pre><font color="#752b01">boolean okToColor(int row, int column, int color)</font></pre>
+<font size="+1">pre><font color="#6a0700">boolean okToColor(int row, int column, int color)</font></pre></font>
 <p>Used by method 2 to check, at every node, whether there is an adjacent node already colored with the given color.</p>
-<pre><font color="#752b01">int[] nextRowAndColumn(int row, int column)</font></pre>
+<font size="+1"><pre><font color="#6a0700">int[] nextRowAndColumn(int row, int column)</font></pre></font>
 <p>Used by both methods to find the next "country" (actually, the row and column of the next square on the checkerboard).</p>
 <p>Here's the code for method 1:</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         boolean explore1(int row, int column, int color) {
             if (row >= NUM_ROWS) <b>return mapIsOK()</b>;
             map[row][column] = color;
@@ -267,10 +276,11 @@
             return false;
         }
     </font>
-</pre>
+</pre></font>
 <p>And here's the code for method 2:</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         boolean explore2(int row, int column, int color) {
             if (row >= NUM_ROWS) <b>return true;
             if (okToColor(row, column, color)) {</b>
@@ -283,7 +293,7 @@
             return false;
         }
     </font>
-</pre>
+</pre></font>
 <p>Those appear pretty similar, and you might think they are equally good. However, the timing information suggests otherwise:</p>
 <table border="1px" align="center" cellpadding="5px">
     <tr>
@@ -311,8 +321,9 @@
 <p><b>Trick #1: Indent when you print method entries and exits.</b> Often, the best debugging technique is to print every method call and return (or at least the most important ones). You probably want to print, for each method, what parameters it came in with, and what value it leaves with. However, if you just print a long list of these, it's hard to match up method exits with their corresponding entries. Indenting to show the level of nesting can help.</p>
 <p><b>Trick #2: Use specialized print methods for debugging.</b> Don't clutter up your actual code more than you must. Also, remember that code inserted for debugging purposes can itself contain bugs, or (in the worst case) can affect the results, so be very careful with it.</p>
 <p>Here's our debugging code. For this trivial program, there's almost more debugging code than actual code, but in larger programs the proportions will be better.</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         static String indent = "";
 
         static String name(BinaryTree node) {
@@ -337,10 +348,11 @@
             return false;
         }
     </font>
-</pre>
+</pre></font>
 <p>To use this code, we modify solvable as follows:</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         static boolean solvable(BinaryTree node) {
             <b>enter(node)</b>;
             if (node == null) return <b>no(node)</b>;
@@ -350,7 +362,7 @@
             return <b>no(node)</b>;
         }
     </font>
-</pre>
+</pre></font>
 <p>And we get these results:</p>
 <pre>
     <b><font size="3" face="ariel">
@@ -380,8 +392,9 @@
 <p><b>Trick #3: Never discard your debugging statements.</b> Writing debugging statements is programming, too. Often it's as much work to debug the debugging statements as it is to debug the actual program. Once your program is working, why throw this code away?</p>
 <p>Obviously, you don't want to print out all this debugging information from a program you are ready to submit (or to turn over to your manager). You could comment out your debugging calls, but that can be a lot of work. What's more, in the above example, you would have to replace every <font color="752b01">return(yes(node))</font> with <font color="752b01">return(true)</font>, and every <font color="752b01">return(no(node))</font> with <font color="752b01">return false</font>. With all these changes, you might introduce new bugs into your program.</p>
 <p>The simple solution is to make your debugging statements <em>conditional</em>. For example,</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         <b>static final boolean debugging = false;</b>
 
         static void enter(BinaryTree node) {
@@ -407,13 +420,14 @@
             return false;
         }
     </font>
-</pre>
+</pre></font>
 <p>In industry, actual programs often have multiple flags to control different aspects of debugging. Don't worry too much about making your code larger; modern compilers will notice that since the variable <font color="#752b01">debugging</font> is <font color="#752b01">final</font>, it can never be <font color="752b01">true</font>, and the controlled code will be discarded.</p>
 <p><b>Trick #4: Create an Exception.</b> If an Exception is thrown, you can get information about just where it happened by sending it the message <font color="#752b01">printStackTrace(PrintStream)</font>. Since an Exception is an object like any other, you can create and throw your own Exceptions. However, Java programmers don't always realize that you can create an Exception without throwing it. For example, the following code</p>
 <p><font color="#752b01">new Exception("Checkpoint Charlie").printStackTrace(System.out);</font></p>
 <p>will print out a message something like this, and the program will then continue normally. That is, the above code just acts like a print statement.</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
     java.lang.Exception: Checkpoint Charlie
         at TreeSearch.solvable(TreeSearch.java:53)
         at TreeSearch.solvable(TreeSearch.java:57)
@@ -421,7 +435,7 @@
         at __SHELL38.run(__SHELL38.java:16)
         at bluej.runtime.ExecServer.suspendExecution(Unknown Source)
     </font>
-</pre>
+</pre></font>
 <h1>Example: Cindy's Puzzle</h1>
 <p>I call the following puzzle "Cindy's puzzle" for historical reasons. You have some number <font color="#752b01">n</font> of black marbles and the same number of white marbles, and you have a playing board which consists simply of a line of <font color="#752b01">2n+1</font> spaces to put the marbles in. Start with the black marbles all at one end (say, the left), the white marbles all at the other end, and a free space in between.</p>
 <table align="center">
@@ -590,8 +604,9 @@
 </ul>
 <p>We write another method <font color="#752b01">int[] makeMove(int[] oldBoard, int position)</font> that will take a board and a position, make a move from that position, and return as its value a new board. (We could write this somewhat more efficiently by changing the old board, rather than creating a new one, but here we are more concerned with simplicity.) In technical jargon, <font color="#752b01">makeMove</font> is "applicative" rather than "mutative."</p>
 <p>We write another method int[] makeMove(int[] oldBoard, int position) that will take a board and a position, make a move from that position, and return as its value a new board. (We could write this somewhat more efficiently by changing the old board, rather than creating a new one, but here we are more concerned with simplicity.) In technical jargon, makeMove is "applicative" rather than "mutative."</p>
+<font size="+1">
 <pre>
-    <font color="#752b01">
+    <font color="#6a0700">
         boolean solvable(int[] board) {
             if (puzzleSolved(board)) {
                 return true;
@@ -608,7 +623,7 @@
             return false;
         }
     </font>
-</pre>
+</pre></font>
 <p>Along with <font color="#752b01">canMove</font> and <font color="#752b01">makeMove</font>, we are using methods <font color="#752b01">puzzleSolved</font> and <font color="#752b01">printBoard</font> with meanings that should be obvious.</p>
 <p>Here is some output from the program:</p>
   <pre> <font size="4" face="arial" align="left"><b>
